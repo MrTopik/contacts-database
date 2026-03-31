@@ -2,6 +2,7 @@ import sys
 from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QHeaderView
 from basicUI import Ui_MainWindow
 from addWindow import AddDialog
+from loginUI import Ui_loginUI
 from database import add_contact, get_all_contacts, delete_contact, update_contact, setup
 
 setup() #Database setup
@@ -11,8 +12,14 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.add = AddDialog()
+        self.logui = Ui_loginUI()
 
-        self.UIsetup()
+        self.logui.setupUi(self)
+        self.logui.loginButton.clicked.connect(self.login)
+
+    def login(self):
+        if self.logui.username.text() == "Topik" and self.logui.password.text() == "topik":
+            self.UIsetup()
     
     #Main Window
     def UIsetup(self):
