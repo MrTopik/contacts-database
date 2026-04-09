@@ -56,6 +56,17 @@ class Ui_loginUI(object):
 
         self.verticalLayout.addLayout(self.formLayout)
 
+        self.loginResult = QLabel(self.centralwidget)
+        self.loginResult.setObjectName(u"loginResult")
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.loginResult.sizePolicy().hasHeightForWidth())
+        self.loginResult.setSizePolicy(sizePolicy)
+        self.loginResult.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.verticalLayout.addWidget(self.loginResult)
+
         self.loginButton = QPushButton(self.centralwidget)
         self.loginButton.setObjectName(u"loginButton")
 
@@ -82,6 +93,7 @@ class Ui_loginUI(object):
         loginUI.setWindowTitle(QCoreApplication.translate("loginUI", u"MainWindow", None))
         self.label.setText(QCoreApplication.translate("loginUI", u"Username:", None))
         self.label_2.setText(QCoreApplication.translate("loginUI", u"Password:", None))
+        self.loginResult.setText("")
         self.loginButton.setText(QCoreApplication.translate("loginUI", u"Login", None))
     # retranslateUi
 

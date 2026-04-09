@@ -32,6 +32,9 @@ class MainWindow(QMainWindow):
     def login(self):
         if self.logui.username.text() == "Topik" and self.logui.password.text() == "topik":
             self.UIsetup()
+        else:
+            self.logui.loginResult.setStyleSheet("color: white; background-color: red; font: bold;")
+            self.logui.loginResult.setText("Username or Password Incorrect")
     
     #Main Window
     def UIsetup(self):
