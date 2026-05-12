@@ -1,4 +1,6 @@
 import sys
+from argon2 import PasswordHasher
+from argon2.exceptions import VerifyMismatchError
 from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QHeaderView, QDialog
 from basicUI import Ui_MainWindow
 from addWindow import Ui_Dialog
@@ -30,9 +32,22 @@ class MainWindow(QMainWindow):
         self.logui.loginButton.clicked.connect(self.login)
 
     def login(self):
-        if self.logui.username.text() == "Topik" and self.logui.password.text() == "topik":
-            self.UIsetup()
-        else:
+        ph = PasswordHasher()
+        #if self.logui.username.text() == "Topik" and self.logui.password.text() == "topik":
+        try:
+            with open("pass.txt", "r") as f:
+                stored_hash = f.read().strip() # .strip() removes accidental spaces/newlines
+        except FileNotFoundError:
+            self.logui.loginResult.setStyleSheet("color: white; background-color: red; font: bold;")
+            self.logui.loginResult.setText("pass.txt not found!")
+        
+        try:
+            if self.logui.username.text() == "Topik":
+                ph.verify(stored_hash, self.logui.password.text())
+                self.UIsetup()
+            else:
+                raise VerifyMismatchError
+        except VerifyMismatchError:
             self.logui.loginResult.setStyleSheet("color: white; background-color: red; font: bold;")
             self.logui.loginResult.setText("Username or Password Incorrect")
     
